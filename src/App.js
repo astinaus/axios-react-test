@@ -9,6 +9,8 @@ const App = () => {
 
   const [post, setPost] = useState(null);
 
+  let changeIndex = 0;
+
   const getPost = useCallback(() => {
     setIsLoading(true);
     axios
@@ -69,9 +71,7 @@ const App = () => {
               </ListGroup.Item>
             </ListGroup>
             <hr></hr>
-            <Card.Text>
-              {post.data.movie.description_full}
-            </Card.Text>
+            <Card.Text>{post.data.movie.description_full}</Card.Text>
             <hr></hr>
             <Button
               variant="link"
@@ -79,9 +79,25 @@ const App = () => {
             >
               자세히보기
             </Button>
+            <div>
+              <input type="text" name="postId" placeholder="번호로 찾기"  onChange={(e) => {
+                changeIndex = e.target.value;
+              }} />
+              <Button variant="secondary" onClick={() => setPostId(changeIndex)}>이동</Button>
+            </div>
             <hr></hr>
-            <Button variant="secondary" onClick={() => setPostId((prev) => prev + 1)}>다음</Button>
-            <Button variant="secondary" onClick={() => setPostId((prev) => prev - 1)}>이전</Button>
+            <Button
+              variant="secondary"
+              onClick={() => setPostId((prev) => prev + 1)}
+            >
+              다음
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setPostId((prev) => prev - 1)}
+            >
+              이전
+            </Button>
             <hr></hr>
           </Card.Body>
         </Card>
